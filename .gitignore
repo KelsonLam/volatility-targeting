@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Cached market data (regenerated on demand)
+data/cache/
+*.parquet
+
+# Backtest outputs
+results/
+*.png
+
+# Local helper scripts (not part of the project)
+init_repo.bat
+init_repo.sh
+
+# Editor / OS noise
+.idea/
+.vscode/
+.DS_Store
