@@ -1,0 +1,24 @@
+# Default configuration for the volatility targeting strategy.
+# Anything here can be overridden on the command line (see scripts/run.py).
+
+asset: "SPY"            # the instrument whose exposure we scale
+
+period:
+  start: "2005-01-01"
+  end: "2024-12-31"
+
+target:
+  annual_volatility: 0.10   # the volatility level we steer the portfolio toward
+
+estimator:
+  method: "rolling"     # "rolling" or "ewma"
+  window: 21            # lookback in trading days for the rolling estimator
+  ewma_lambda: 0.94     # RiskMetrics decay if method is "ewma"
+
+position:
+  max_leverage: 3.0     # cap on exposure so a calm market does not over-lever
+
+costs:
+  transaction_cost_bps: 1.0   # charged on the change in exposure each day
+
+risk_free_rate: 0.0   # annualized, used for Sharpe and Sortino
