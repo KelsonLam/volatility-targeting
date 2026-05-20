@@ -18,6 +18,8 @@ data/cache/
 # Backtest outputs
 results/
 *.png
+# but keep the committed example charts in images/
+!images/*.png
 
 # Local helper scripts (not part of the project)
 init_repo.bat

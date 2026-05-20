@@ -43,6 +43,27 @@ works rather than just coding it up. Two effects show up again and again:
   dangerous. That is not free money, and it can hurt in a sharp V-shaped
   recovery, but the drawdown profile is usually gentler.
 
+## Example output
+
+The charts below come straight from the plotting code in this repo. The
+committed versions here were generated on simulated data, so they show what the
+output looks like. Run `python scripts/run.py --save-plots` to reproduce them on
+live market data.
+
+The equity curve shows the targeted book riding through the volatile stretches
+more smoothly than buy and hold:
+
+![Volatility targeting versus buy and hold](images/equity_curve.png)
+
+The exposure rises when the market is calm and is cut back when volatility
+spikes:
+
+![Exposure over time](images/leverage.png)
+
+And the estimated volatility is what drives the sizing, shown against the target:
+
+![Estimated volatility against the target](images/realized_vol.png)
+
 ## How it works
 
 | Module          | Responsibility                                              |
