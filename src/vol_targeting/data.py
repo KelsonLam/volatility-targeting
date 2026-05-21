@@ -35,6 +35,10 @@ class YFinanceLoader:
         self.use_cache = use_cache
 
     def load(self, ticker: str, start: str, end: str) -> pd.Series:
+        if not ticker or not str(ticker).strip():
+            raise ValueError("ticker must be a non-empty symbol.")
+        if pd.Timestamp(start) >= pd.Timestamp(end):
+            raise ValueError(f"start ({start}) must be earlier than end ({end}).")
         cache_path = self.cache_dir / _cache_key(ticker, start, end)
 
         if self.use_cache and cache_path.exists():
