@@ -33,6 +33,20 @@ class StrategyConfig:
     transaction_cost_bps: float = 1.0
     risk_free_rate: float = 0.0
 
+    def __post_init__(self) -> None:
+        if self.target_annual_vol <= 0:
+            raise ValueError("target_annual_vol must be positive.")
+        if self.method not in ("rolling", "ewma"):
+            raise ValueError("method must be 'rolling' or 'ewma'.")
+        if self.window < 2:
+            raise ValueError("window must be at least 2.")
+        if self.max_leverage <= 0:
+            raise ValueError("max_leverage must be positive.")
+        if not 0.0 < self.ewma_lambda < 1.0:
+            raise ValueError("ewma_lambda must be strictly between 0 and 1.")
+        if self.transaction_cost_bps < 0:
+            raise ValueError("transaction_cost_bps cannot be negative.")
+
 
 @dataclass
 class StrategyResult:
@@ -49,6 +63,14 @@ def run_strategy(
     asset_returns: pd.Series, config: StrategyConfig
 ) -> StrategyResult:
     """Run the volatility targeting backtest on a daily return series."""
+    if asset_returns.empty:
+        raise ValueError("asset_returns is empty. Nothing to run.")
+    if len(asset_returns) <= config.window:
+        raise ValueError(
+            f"Need more than {config.window} returns to warm up the "
+            f"volatility estimate, but only {len(asset_returns)} were given."
+        )
+
     sigma = estimate_volatility(
         asset_returns,
         method=config.method,
