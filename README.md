@@ -86,7 +86,7 @@ return it goes on to earn. There is a unit test that pins this down.
 ## Getting started
 
 ```bash
-git clone https://github.com/lamkelson/volatility-targeting.git
+git clone https://github.com/KelsonLam/volatility-targeting.git
 cd volatility-targeting
 pip install -r requirements.txt
 python scripts/run.py
