@@ -141,6 +141,22 @@ this one does and does not do.
   diversified production system, and one backtest is one realization of
   history rather than a forecast.
 
+## Cutting turnover with a no-trade band
+
+Recomputing the target exposure every day and chasing every tiny change racks up
+trading costs for almost no risk benefit. `rebalance.py` adds a no-trade band:
+only move the position when the new target is more than a threshold away from
+what you already hold.
+
+```python
+from vol_targeting.rebalance import apply_rebalance_threshold, turnover
+lazy = apply_rebalance_threshold(result.leverage, threshold=0.10)
+turnover(lazy) < turnover(result.leverage)   # fewer trades, similar risk
+```
+
+It trades a little tracking error for a lot less turnover, the most common
+practical tweak to a vol-targeting rule.
+
 ## Tests
 
 ```bash
@@ -150,7 +166,8 @@ pytest
 
 The suite runs on synthetic returns, so it is fast and offline. It checks both
 estimators, the no-lookahead alignment, the leverage cap, that costs reduce
-returns, and that the realized volatility actually lands near the target.
+returns, that the realized volatility actually lands near the target, and that
+the no-trade band reduces turnover.
 
 ## Project layout
 
