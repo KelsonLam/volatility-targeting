@@ -46,7 +46,7 @@ works rather than just coding it up. Two effects show up again and again:
 ## Example output
 
 The charts below come straight from the plotting code in this repo. The
-committed versions here were generated on simulated data, so they show what the
+committed versions here were generated on live market data pulled with yfinance, so they show what the
 output looks like. Run `python scripts/run.py --save-plots` to reproduce them on
 live market data.
 
